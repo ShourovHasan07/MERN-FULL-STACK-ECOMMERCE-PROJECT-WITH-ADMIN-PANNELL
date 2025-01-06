@@ -78,8 +78,12 @@ function Navbar() {
   <div onClick={()=>setVisible(false)} className="flex items-center gap-4 p-3 cursor-pointer" >
     <img src={assets.dropdown_icon} alt="" />
     <p>Back</p>
-
   </div>
+  <NavLink  onClick={()=>setVisible(false)} className='py-2 pl-6 border-[6px]' to='/' >Home</NavLink>
+<NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border-[6px]' to='/collection' >Collection</NavLink>
+<NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border-[6px]' to='/about' >About</NavLink>
+<NavLink onClick={()=>setVisible(false)} className='py-2 pl-6 border-[6px]' to='/contact' >Contact</NavLink>
+
 </div>
 
       </div>

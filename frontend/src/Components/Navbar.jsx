@@ -9,7 +9,7 @@ function Navbar() {
 
   const [visible,setVisible] = useState(false)
 
-  const {setShowSearch} = useContext(ShopContext)
+  const {setShowSearch , getCartCount} = useContext(ShopContext)
 
 
 
@@ -62,13 +62,22 @@ function Navbar() {
 
 </div>
 
-<Link  to='/card'  className="relative" >
-
-<img src={assets.cart_icon} className="w-5 min-w-5" alt=""  />
-
-<p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]    " >10</p>
-
+<Link to="/card" className="relative inline-block">
+  {/* Cart Icon */}
+  <img 
+    src={assets.cart_icon} 
+    className="w-8 h-8" 
+    alt="Cart Icon" 
+  />
+  
+  {/* Cart Count Badge */}
+  <p 
+    className="absolute top-4 -right-1 w-5 h-5 flex items-center justify-center bg-red-500 text-white text-xs font-bold rounded-full shadow-lg"
+  >
+    {getCartCount()}
+  </p>
 </Link>
+
 
 <img onClick={()=>setVisible(true)}  src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden"/>
 

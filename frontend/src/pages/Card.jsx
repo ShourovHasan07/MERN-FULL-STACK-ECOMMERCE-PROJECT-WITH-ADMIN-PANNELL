@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import Title from '../Components/Title'
 import { assets } from '../assets/frontend_assets/assets'
+import CartTotal from '../Components/CartTotal'
 
 const Card = () => {
 
-  const {products, currency,cartItems,updateQuantity} = useContext(ShopContext)
+  const {products, currency,cartItems,updateQuantity,navigate} = useContext(ShopContext)
   const[cartData, setCartData] = useState([])
 
   useEffect (()=>{
@@ -78,8 +79,8 @@ const Card = () => {
       
 
       
-           
-      <input  onChange={(e)=> e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id,item.size,Number(e.target.value))   }  className=' ml-20 border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type="number"  min={1} defaultValue={item.quantity}  />
+         
+      <input  onChange={(e)=> e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id,item.size,Number(e.target.value))   }  className=' ml-20 border border-orange-500 max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type="number"  min={1} defaultValue={item.quantity}  />
 
       <img onClick={()=>updateQuantity(item._id,item.size,0)} className='w-3 mr-4 sm:w-5 cursor-pointer ' src={assets.bin_icon} alt="" />
      
@@ -90,6 +91,30 @@ const Card = () => {
 
       }
       
+    </div>
+
+    <div className='flex justify-end my-20 '  >
+
+    <div className='w-full sm:w-[450px]' >
+
+    < CartTotal/>
+
+
+    <div className='w-full text-end' >
+
+    <button onClick={()=>navigate('/place-order')}  className="bg-black hover:bg-slate-400 rounded p-2 mt-6 text-stone-50 transition-colors duration-300 sm:text-sm md:text-base lg:text-lg"
+ >PROCEED TO CHECKOUT </button>
+
+    </div>
+
+
+
+    </div>
+
+    
+
+
+
     </div>
    
      

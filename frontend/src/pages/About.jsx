@@ -50,6 +50,7 @@ function About() {
     </div>
   
        <NewsletterBox/>
+       
     </div>
   )
 }

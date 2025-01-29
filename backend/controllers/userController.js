@@ -19,9 +19,10 @@ const loginUser = async (req, res) => {
       // ব্যবহারকারী খুঁজুন
       const user = await userModel.findOne({ email });
   
-      if (!user) {
+      if (!user) { 
         return res.json({ success: false, message: "User doesn't exist" });
       }
+      
   
       // পাসওয়ার্ড যাচাই করুন
       const isMatch = await bcrypt.compare(password, user.password);

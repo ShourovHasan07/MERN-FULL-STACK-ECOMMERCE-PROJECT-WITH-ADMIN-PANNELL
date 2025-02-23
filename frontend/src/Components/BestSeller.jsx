@@ -7,7 +7,7 @@ const BestSeller = () => {
 
     const {products}=useContext(ShopContext)
 
-    console.log(products)
+    
     const [bestSeller,setBestSeller] = useState([])
 
     useEffect(()=>{

@@ -6,13 +6,20 @@ import { toast } from "react-toastify";
 import {useNavigate} from 'react-router-dom'
 
 
+
+
  export const ShopContext= createContext()
+
+
 const ShopContextProvider = (props) =>{
+
+ 
 
     const currency = "$"
     const delivery_fee = 10 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
     const [search,setSearch] = useState('')
+
 
     const [products,SetProducts] = useState([])
 
@@ -25,38 +32,70 @@ const ShopContextProvider = (props) =>{
 
 
      const addToCart = async (itemId, size) => {
-      
       if (!size) {
+        toast.error("Select Product size");
+        return;
+      }
+    
+      if (!itemId || !size) {
+        console.error("Invalid itemId or size:", { itemId, size });
+        return;
+      }
+    
+      
+    
+      console.log("🟢 Sending data:", {  itemId, size });
+    
+      let cartData = structuredClone(cartItems) ;
 
-        toast.error('Select Product size')
+      console.log("cartdata:", cartData)
+    
+      
+    
+      if(cartData[itemId]){
+        if (cartData[itemId][size]) {
+          cartData[itemId][size] += 1;
+        } else {
+          cartData[itemId][size] = 1;
+        }
+      }
+    
 
-        return
-        
+
+
+ 
+      else{
+
+
+        cartData[itemId]={}
+        cartData[itemId][size]=1
       }
 
-        if (!itemId || !size) {
-          console.error("Invalid itemId or size:", { itemId, size });
-          return;
+
+
+
+
+      setCartItems(cartData);
+    
+      if (token) {
+        try {
+          const response = await axios.post(
+            backendUrl + "/api/cart/add",
+            {  itemId, size }, // ✅ Sending userId
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log("🟢 Response from backend:", response.data);
+        } catch (error) {
+          console.error("🔴 Axios error:", error.response?.data || error.message);
+          toast.error(error.response?.data?.message || error.message);
         }
-      
-        // Ensure cartData is always an object
-        let cartData = structuredClone(cartItems) || {};
-      
-        // Check if the itemId exists in cartData
-        if (!cartData[itemId]) {
-          cartData[itemId] = {}; // Initialize itemId as an empty object
-        }
-      
-        // Check if the size exists for the itemId
-        if (cartData[itemId][size]) {
-          cartData[itemId][size] += 1; // Increment quantity
-        } else {
-          cartData[itemId][size] = 1; // Initialize size with quantity 1
-        }
-      
-        // Update the cart state
-        setCartItems(cartData);
-      };
+      }
+    };
+    
       
      
       const getCartCount = ()=>{
@@ -152,7 +191,12 @@ const ShopContextProvider = (props) =>{
        useEffect(()=>{
         if(!token && localStorage.getItem('token')){
           setToken(localStorage.getItem('token'))
+
         }
+
+   
+
+
        },[])
 
 

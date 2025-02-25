@@ -5,8 +5,8 @@ import jwt from 'jsonwebtoken';
 import userModel from './../models/userModel.js';
 
 
-const createToken = (userId) => {
-  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '7 days' });
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7 days' });
 };
 
 

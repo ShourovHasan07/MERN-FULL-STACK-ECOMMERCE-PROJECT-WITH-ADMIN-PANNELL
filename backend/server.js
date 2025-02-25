@@ -5,6 +5,7 @@ import connectDB from './config/mongodb.js'
 import connectCloudinary from './config/cloudinary.js'
 import userRouter from './routes/userRoutes.js'
 import productRouter from './routes/productRout.js'
+import cartRouter from './routes/cartRoute.js';
 
 
 
@@ -27,6 +28,7 @@ connectCloudinary()
 
  app.use('/api/user',userRouter)
  app.use('/api/product',productRouter)
+ app.use('/api/cart',cartRouter)
 
 
  

@@ -3,6 +3,7 @@ import orderModel from './../models/orderModel.js';
 import userModel from './../models/userModel.js';
 
 
+
 const placeOrder = async (req,res) =>{
 
     try {
@@ -48,7 +49,17 @@ const placeOrderBksh = async (req,res) =>{
 // all order data for admin panel 
 
 const allOrders = async (req,res) =>{
+try {
 
+    const orders =await orderModel.find({})
+    res.json({success:true,orders})
+    
+} catch (error) 
+
+{console.log(error)
+    res.json({success:false, message:error.message})
+    
+}
 }
 
 

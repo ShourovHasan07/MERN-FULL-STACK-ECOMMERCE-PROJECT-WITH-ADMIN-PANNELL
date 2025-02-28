@@ -16,7 +16,7 @@ const placeOrder = async (req,res) =>{
             amount,
             paymentMethod:'COD',
             payment: false,
-            date:Date.now() // current date are show 
+            date:Date.now() // current date are show  and cheack 
 
         }
 

@@ -37,6 +37,35 @@ const Order = ({ token }) => {
     }
   };
 
+  const statusHandler = async (event, orderId) => {
+    try {
+      const response = await axios.post(
+        backendUrl + '/api/order/status',
+        { orderId, status: event.target.value },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (response.data.success) {
+        toast.success("Order status updated successfully!");
+        
+        // ❌ Don't call statusHandler recursively
+        // ✅ Instead, update the UI or refresh order data
+        // Example: call a function to reload data (if needed)
+        // fetchOrders(); 
+      }
+    } catch (error) {
+      console.log(error);
+  
+      // ✅ Fix: Use error.response?.data?.message to avoid undefined errors
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  };
+  
+
   useEffect(() => {
     fetchAllOrders();
   }, [token]);
@@ -104,7 +133,7 @@ const Order = ({ token }) => {
 
               <div className="mb-4">
                 <p className="text-sm font-semibold">Status:</p>
-                <select value={order.status} className="w-full p-2 border border-gray-300 rounded-md">
+                <select onChange={(event)=>statusHandler(event,order._id)} value={order.status} className="w-full p-2 border border-gray-300 rounded-md">
                   <option value="Order Placed">Order Placed</option>
                   <option value="Packing">Packing</option>
                   <option value="Shipped">Shipped</option>

@@ -2,8 +2,7 @@ import jwt from 'jsonwebtoken';
 
 const adminAuth = (req, res, next) => {
   // Log the Authorization header to check if it's being sent properly
-  console.log('Authorization Header:', req.headers['authorization']); 
-
+  
   // Check if the Authorization header exists
   const authHeader = req.headers['authorization'];
   if (!authHeader) {
